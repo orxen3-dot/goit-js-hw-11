@@ -1,7 +1,9 @@
 .loader.is-visible {
   --color-1: #4e75ff;
   --size: 1.25px;
-  margin-top: 50px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
   width: calc(48 * var(--size));
   height: calc(48 * var(--size));
   border: calc(5 * var(--size)) dotted var(--color-1);
