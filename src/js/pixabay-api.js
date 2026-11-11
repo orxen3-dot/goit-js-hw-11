@@ -1,9 +1,15 @@
 import axios from "axios";
 
-const API_KEY = "57502012-ee4b45b608b98ab265fc038c4";
+const API_KEY = import.meta.env.VITE_PIXABAY_API_KEY;
 const BASE_URL = "https://pixabay.com/api/";
 
 export function getImagesByQuery(query) {
+    if (!API_KEY) {
+        return Promise.reject(
+            new Error("Missing VITE_PIXABAY_API_KEY. Add your Pixabay API key to the .env file.")
+        );
+    }
+
     const params = {
         key: API_KEY,
         q: query,
@@ -13,11 +19,9 @@ export function getImagesByQuery(query) {
     };
 
     return axios.get(BASE_URL, { params })
-        .then((response) => {
-            return response.data
-        })
+        .then((response) => response.data)
         .catch((error) => {
             console.error("Error fetching images:", error);
-        })
-    
+            throw error;
+        });
 }
