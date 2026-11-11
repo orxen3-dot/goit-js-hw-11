@@ -25,14 +25,33 @@ A vanilla JavaScript application that searches the Pixabay API and displays matc
 
 ```bash
 npm install
+```
+
+Create a local `.env` file from the example:
+
+```bash
+cp .env.example .env
+```
+
+Add your Pixabay API key to `.env`:
+
+```env
+VITE_PIXABAY_API_KEY=your_pixabay_api_key_here
+```
+
+Then start the development server:
+
+```bash
 npm run dev
 ```
 
 Use `npm run build` to create a production build.
 
-## API configuration
+## API configuration and security
 
-The current implementation reads the Pixabay API key from `src/js/pixabay-api.js`. Replace it with your own key before running the project. Do not publish personal credentials in a public repository. A key bundled into a browser application is visible to users, even when supplied through a Vite environment variable.
+The application reads the key from `import.meta.env.VITE_PIXABAY_API_KEY`. The local `.env` file is ignored by Git; `.env.example` documents the required variable without containing a real credential.
+
+**Security note:** Vite variables prefixed with `VITE_` are included in client-side code and are visible to users in the browser. This setup prevents accidentally committing the key in source files, but it does not make the key secret in a deployed frontend. Revoke any key that has previously been exposed in a public repository.
 
 ## Learning focus
 
